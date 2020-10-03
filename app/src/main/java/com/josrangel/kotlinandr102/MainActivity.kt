@@ -18,13 +18,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpObservables(){
+        //se define el observador para pasar la informacion al textview
         viewModel.listBooks.observe(this, Observer { list->
+            //en caso de que la respuesta sea nula se le asignara NO DATA
             val resultBooks = list?.joinToString () ?: " NO DATA"
             txtCriptos?.text = resultBooks
         })
     }
 
     private fun setUpListeners(){
+        //se crea un listener en el textview para cuando se de click en el, mande a pedir los datos
         txtCriptos?.setOnClickListener{
             viewModel.getLastBooks()
         }

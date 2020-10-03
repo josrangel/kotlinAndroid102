@@ -1,5 +1,6 @@
 package com.josrangel.kotlinandr102
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class MainViewModel: ViewModel() {
     fun getLastBooks(){
         viewModelScope.launch {
             val result = repo.getBooks()
+
             mutableListBooks.value = result
         }
 

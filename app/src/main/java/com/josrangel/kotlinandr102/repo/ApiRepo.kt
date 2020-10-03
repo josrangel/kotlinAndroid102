@@ -1,5 +1,6 @@
 package com.josrangel.kotlinandr102.repo
 
+import android.util.Log
 import com.josrangel.kotlinandr102.SimpleBook
 import com.josrangel.kotlinandr102.network.Api
 import com.josrangel.kotlinandr102.network.BookResponse
@@ -12,6 +13,7 @@ class ApiRepo {
 
     suspend fun getBooks() = withContext(Dispatchers.Default) {
         val result:BookResponse? = api.getBooks()
+        Log.i("respuesta ",result.toString())
         val listBooks:List<SimpleBook?>? =result?.payload?.map{item ->
             item?.toSimpleBook()
         }
@@ -20,8 +22,8 @@ class ApiRepo {
 
     fun PayloadItem.toSimpleBook() : SimpleBook{
         return SimpleBook(
-            bookName = book ?: "",
-            maxPrice = maximumPrice ?: ""
+            bookName = this.book ?: "",
+            maxPrice = this.maximumPrice ?: ""
         )
     }
 

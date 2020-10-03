@@ -2,7 +2,7 @@ package com.josrangel.kotlinandr102.network
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-
+// se crean las clases modelo o POJOS de nuestra con base a la respuesta(Json) que regresa el servicio que queremos consultar
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class BookResponse(
 
