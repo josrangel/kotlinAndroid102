@@ -23,7 +23,8 @@ class ApiRepo {
     fun PayloadItem.toSimpleBook() : SimpleBook{
         return SimpleBook(
             bookName = this.book ?: "",
-            maxPrice = this.maximumPrice ?: ""
+            maxPrice = this.maximumPrice ?: "",
+            minimumPrice = this.minimumPrice ?: ""
         )
     }
 
