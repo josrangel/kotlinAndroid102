@@ -25,7 +25,7 @@ class BookAdapter (private val mList: List<SimpleBook>) : RecyclerView.Adapter<B
         val ItemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.tvBookName.text = ItemsViewModel.bookName
+        holder.tvBookName.text = ItemsViewModel.bookName.replace("_","/").toUpperCase()
         holder.tvMaxPrice.text = ItemsViewModel.maxPrice
         holder.tvMinPrice.text = ItemsViewModel.minimumPrice
     }
