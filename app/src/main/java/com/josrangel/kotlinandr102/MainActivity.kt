@@ -5,12 +5,20 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
+import com.ethanhua.skeleton.Skeleton
 import com.josrangel.kotlinandr102.adapter.BookAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
+/**
+ * Source:
+ * Skeleton animation: https://jagar.me/post/how_to_create_skeleton_loading_view_for_any_recyclervie_or_view/
+ */
 class MainActivity : AppCompatActivity() {
 
     lateinit var bookAdapter: BookAdapter
+    lateinit var skeletonScreen: RecyclerViewSkeletonScreen.Builder
     val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpListeners()
         setUpObservables()
+        initRecyclerView(Arrays.asList())
+        initSkeleton()
+        chargeBooks()
     }
 
     private fun setUpObservables(){
@@ -34,8 +45,13 @@ class MainActivity : AppCompatActivity() {
     private fun setUpListeners(){
         //se crea un listener en el textview para cuando se de click en el, mande a pedir los datos
         txtCriptos?.setOnClickListener{
-            viewModel.getLastBooks()
+            chargeBooks()
         }
+    }
+
+    private fun chargeBooks(){
+        showSkeleton()
+        viewModel.getLastBooks()
     }
 
     private fun initRecyclerView(dataRV: List<SimpleBook?>) {
@@ -44,5 +60,15 @@ class MainActivity : AppCompatActivity() {
         bookAdapter = BookAdapter(dataRV as List<SimpleBook>)
         // Setting the Adapter with the recyclerview
         rvBooks.adapter = bookAdapter
+    }
+
+    private fun initSkeleton(){
+        skeletonScreen = Skeleton.bind(rvBooks)
+            .adapter(bookAdapter)
+            .load(R.layout.skeleton_item_view)
+    }
+
+    fun showSkeleton(){
+        skeletonScreen.show()
     }
 }
